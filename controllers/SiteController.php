@@ -8,8 +8,8 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\Usuario;
+use app\models\Post;
 
 class SiteController extends Controller
 {
@@ -62,7 +62,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $posts = Post::find()->all();
+        return $this->render('index', [
+            'posts' => $posts,
+        ]);
     }
 
     /**
