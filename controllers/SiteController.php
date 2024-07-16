@@ -62,7 +62,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $posts = Post::find()->all();
+        $posts = Post::find()->orderBy(['created_at' => SORT_DESC])->all();
         return $this->render('index', [
             'posts' => $posts,
         ]);

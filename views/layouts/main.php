@@ -34,24 +34,31 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
+        'options' => ['class' => 'navbar-expand-md navbar-dark bg-primary fixed-top me-auto']
     ]);
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
+        'options' => ['class' => 'navbar-nav me-auto'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
+            ['label' => 'Página Inicial', 'url' => ['/site/index']],
+        ],
+    ]);
+    
+    echo '<div class="d-flex align-items-center">';
+
+    echo Nav::widget([ 
+        'options' => ['class' => 'navbar-nav'],
+        'items' => [ 
+            Yii::$app->user->isGuest ? Html::a('Login', '/site/login', ['class' => 'btn btn-primary', 'name' => 'login-button'])
+            : '<li class="nav-item">'
+                . Html::beginForm(['/site/logout'])
+                . Html::submitButton(
+                    'Sair (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'nav-link btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>',
+            Yii::$app->user->isGuest ? Html::a('Criar Conta', '/site/register', ['class' => 'btn btn-outline-light', 'name' => 'newUser-button'])
+            : Html::a('Novo Post', '/post/create', ['class' => 'btn btn-success', 'name' => 'newJob-button']) 
         ]
     ]);
     NavBar::end();
@@ -71,8 +78,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+            <div class="col-md-6 text-center text-md-start">&copy; Feito por Felipe Mendes <?= date('Y') ?></div>
         </div>
     </div>
 </footer>
