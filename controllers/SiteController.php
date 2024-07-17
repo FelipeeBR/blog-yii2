@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\Usuario;
 use app\models\Post;
+use app\models\PostSearch;
 
 class SiteController extends Controller
 {
@@ -63,8 +64,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $posts = Post::find()->orderBy(['created_at' => SORT_DESC])->all();
+
+        $searchModel = new PostSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+        
         return $this->render('index', [
             'posts' => $posts,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -131,6 +138,17 @@ class SiteController extends Controller
 
         return $this->render('register', [
             'model' =>$model,
+        ]);
+    }
+
+    public function actionSearchResults()
+    {
+        $searchModel = new PostSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('search-results', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 }
