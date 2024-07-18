@@ -7,7 +7,9 @@ use yii\bootstrap5\Html;
 
 ?>
 <div class="posts">
-    <h2>Resultados da Pesquisa</h2>
+    <div class="alert alert-info" role="alert">
+        Resultados da pesquisa
+    </div>
     <?php if (!empty($dataProvider->getModels())): ?>
         <?php foreach ($dataProvider->getModels() as $post): ?>
             <div class="card shadow mb-5">

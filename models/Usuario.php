@@ -30,7 +30,7 @@ class Usuario extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
+            [['username', 'password'], 'required', 'message' => 'Por favor, preencha {attribute}.'],
             [['username', 'password', 'auth_key', 'acessToken'], 'string', 'max' => 45],
             ['username', 'unique', 'targetClass' => '\app\models\Usuario', 'message' => 'Este nome de usuário já está em uso.'],
         ];

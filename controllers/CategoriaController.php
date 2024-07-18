@@ -2,21 +2,16 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\Post;
-use app\models\PostSearch;
+use app\models\Categoria;
+use app\models\CategoriaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-
-use app\models\Categoria;
-use app\models\PostCategoria;
 
 /**
- * PostController implements the CRUD actions for Post model.
+ * CategoriaController implements the CRUD actions for Categoria model.
  */
-class PostController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * @inheritDoc
@@ -26,17 +21,6 @@ class PostController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout', 'create', 'update', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['logout', 'create', 'update', 'delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -48,13 +32,13 @@ class PostController extends Controller
     }
 
     /**
-     * Lists all Post models.
+     * Lists all Categoria models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PostSearch();
+        $searchModel = new CategoriaSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -64,7 +48,7 @@ class PostController extends Controller
     }
 
     /**
-     * Displays a single Post model.
+     * Displays a single Categoria model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -77,46 +61,29 @@ class PostController extends Controller
     }
 
     /**
-     * Creates a new Post model.
+     * Creates a new Categoria model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    
     public function actionCreate()
     {
-        $model = new Post();
+        $model = new Categoria();
 
-        $categories = Categoria::find()->all();
-
-        $categoryList = \yii\helpers\ArrayHelper::map($categories, 'id', 'name');
-
-        if ($model->load(Yii::$app->request->post())) {
-            $model->created_by = Yii::$app->user->id;
-            $model->updated_by = Yii::$app->user->id;
-
-
-            if ($model->save()) {
-                $categoria_id = Yii::$app->request->post('Post')['categoria_id'];
-                $postCategoria = new PostCategoria();
-                $postCategoria->post_id = $model->id;
-                $postCategoria->categoria_id = $categoria_id;
-                $postCategoria->save();
-
-                Yii::$app->session->setFlash('success', 'Post criado com sucesso.');
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            } else {
-                Yii::$app->session->setFlash('error', 'Erro ao criar o post: ' . json_encode($model->errors));
             }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
-            'categoryList' => $categoryList,
         ]);
     }
 
     /**
-     * Updates an existing Post model.
+     * Updates an existing Categoria model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -136,7 +103,7 @@ class PostController extends Controller
     }
 
     /**
-     * Deletes an existing Post model.
+     * Deletes an existing Categoria model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -146,23 +113,22 @@ class PostController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['site/index']);
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Post model based on its primary key value.
+     * Finds the Categoria model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Post the loaded model
+     * @return Categoria the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Post::findOne(['id' => $id])) !== null) {
+        if (($model = Categoria::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
 }

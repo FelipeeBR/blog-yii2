@@ -20,6 +20,7 @@ use Yii;
  */
 class Post extends \yii\db\ActiveRecord
 {
+    public $categoria_id; // Propriedade temporária
     /**
      * {@inheritdoc}
      */
@@ -34,12 +35,13 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'created_by', 'updated_by'], 'required'],
+            [['title', 'created_by', 'updated_by'], 'required', 'message' => 'Por favor, preencha {attribute}.'],
             [['description'], 'string'],
             [['created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 45],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['created_by' => 'id']],
             [['updated_by'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['updated_by' => 'id']],
+            [['categoria_id'], 'integer'],
         ];
     }
 
@@ -89,5 +91,15 @@ class Post extends \yii\db\ActiveRecord
     public function getUpdatedBy()
     {
         return $this->hasOne(Usuario::class, ['id' => 'updated_by']);
+    }
+
+    public function getPostCategorias()
+    {
+        return $this->hasMany(PostCategoria::class, ['post_id' => 'id']);
+    }
+
+    public function getCategorias()
+    {
+        return $this->hasMany(Categoria::class, ['id' => 'categoria_id'])->via('postCategorias');
     }
 }

@@ -12,12 +12,13 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>Please fill out the following fields to login:</p>
-
-    <div class="row">
-        <div class="col-lg-5">
+    
+    <div class="row d-flex justify-content-center">
+        <div class="card col-lg-5 p-5 w-50 shadow-sm mb-5 bg-body-tertiary rounded">
+            <div class="justify-content-center">
+                <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
+                <p class="text-center">Digite seus dados de acesso nos campos abaixo:</p>
+            </div>
 
             <?php $form = ActiveForm::begin([
                 'id' => 'login-form',
@@ -29,13 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]); ?>
 
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label(false)->input('name', ['placeholder' => "Usuário"]) ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'password')->passwordInput()->label(false)->input('password', ['placeholder'=> "Senha"]) ?>
 
             <?= $form->field($model, 'rememberMe')->checkbox([
                 'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            ]) ?>
+            ])->label('Permanecer Conectado') ?>
 
             <div class="form-group">
                 <div>

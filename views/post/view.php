@@ -26,13 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </p>
     <?php endif; ?>           
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'description:ntext',
-        ],
-    ]) ?>
 
-    <p><?= Html::encode($model->description) ?></p>
+    <p><?= Html::decode($model->description) ?></p>
 
 </div>

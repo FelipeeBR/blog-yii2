@@ -25,7 +25,7 @@ $this->title = 'Blog';
     </div>
     <div class="posts">
         <?php if ($dataProvider->getCount() > 0): ?>
-            <h2>Postagens</h2>
+            <h2 class="mb-5">Postagens</h2>
             <div>
                 <?php foreach ($dataProvider->getModels() as $post): ?>
                     <div class="card shadow mb-5">
@@ -33,7 +33,7 @@ $this->title = 'Blog';
                             <h3><?= Html::encode($post->title) ?></h3>
                         </div>
                         <div class="card-body">
-                            <p class="card-text text-truncate"><?= Html::encode($post->description) ?></p>
+                            <p class="card-text text-truncate"><?= Html::encode(html_entity_decode(strip_tags($post->description))) ?></p>
                             <p><small>Criado por: <?= Html::encode($post->createdBy->username) ?> em <?= date('d/m/Y H:i', $post->created_at) ?></small></p>
                             <?= Html::a('Continue Lendo', ['post/view', 'id' => $post->id], ['class' => 'btn btn-primary'])?>
                         </div>

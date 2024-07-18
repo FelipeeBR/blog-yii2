@@ -58,7 +58,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 . Html::endForm()
                 . '</li>',
             Yii::$app->user->isGuest ? Html::a('Criar Conta', '/site/register', ['class' => 'btn btn-outline-light', 'name' => 'newUser-button'])
-            : Html::a('Novo Post', '/post/create', ['class' => 'btn btn-success', 'name' => 'newJob-button']) 
+            : Html::hiddenInput('')
         ]
     ]);
     NavBar::end();
