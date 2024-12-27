@@ -1,12 +1,12 @@
-<h1 align="center">Projeto Blog feito com Framwork Yii 2</h1>
+<h1 align="center">Blog de postagens utilizando o Framwork Yii 2</h1>
 
 O modelo de projeto básico do Yii 2 é um esqueleto [Yii 2](https://www.yiiframework.com/) ideal para
 criando rapidamente pequenos projetos.
 
-O modelo contém os recursos básicos, incluindo login/logout do usuário criação de posts e categorias.
+## Conteúdo
+Este é um sistema desenvolvido com o framework Yii2, onde foi abordados itens importantes como o padrão MVC, uso de migrations, autenticação de usuários, recuperação de dados do banco de dados, relações entre modelos (como Many-to-Many).
 <br>
-Tinymce para edição e formatação das postagens.
+## Tecnologia
+- <a href="https://www.tiny.cloud/">Tinymce</a>: para edição e formatação das postagens.
+- MySQL
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)
